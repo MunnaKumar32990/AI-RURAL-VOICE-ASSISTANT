@@ -1,13 +1,30 @@
-fastapi==0.104.1
-uvicorn[standard]==0.24.0
-python-multipart==0.0.6
-google-generativeai==0.3.2
-openai==1.3.0
-requests==2.31.0
-pydantic==2.5.2
-python-dotenv==1.0.0
-motor==3.3.2
-passlib[bcrypt]==1.7.4
-PyJWT==2.8.0
-email-validator==2.1.0
+# Gram Vaani – Backend Dependencies
+# Install with: pip install -r requirements.txt
 
+# Web framework
+fastapi==0.115.0
+uvicorn[standard]==0.30.0
+python-multipart==0.0.12
+
+# AI / Azure OpenAI
+openai==1.50.0
+
+# Azure Speech Services (TTS + STT integration)
+azure-cognitiveservices-speech==1.41.1
+
+# HTTP requests
+requests==2.32.3
+
+# MongoDB (async driver)
+motor==3.6.0
+
+# Auth & Security
+passlib[bcrypt]==1.7.4
+PyJWT==2.9.0
+email-validator==2.2.0
+
+# Data validation
+pydantic[email]==2.9.2
+
+# Environment variables
+python-dotenv==1.0.1

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { ArrowLeft, Edit2, Save, X, User, Mail, MapPin, Globe, Calendar, MessageSquare, TrendingUp, Activity, Award, Menu } from 'lucide-react'
 import axios from 'axios'
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+
 function Profile({ user, onBack, onUserUpdate }) {
   const [isEditing, setIsEditing] = useState(false)
   const [editData, setEditData] = useState({
@@ -23,7 +25,7 @@ function Profile({ user, onBack, onUserUpdate }) {
   const fetchUserQueries = async () => {
     try {
       const token = localStorage.getItem('token')
-      const response = await axios.get('http://localhost:8000/api/user-queries', {
+      const response = await axios.get(`${API_URL}/api/user-queries`, {
         headers: { Authorization: `Bearer ${token}` }
       })
       const queriesData = response.data.queries || []
@@ -50,7 +52,7 @@ function Profile({ user, onBack, onUserUpdate }) {
     setError('')
     try {
       const token = localStorage.getItem('token')
-      await axios.put('http://localhost:8000/api/profile', editData, {
+      await axios.put(`${API_URL}/api/profile`, editData, {
         headers: { Authorization: `Bearer ${token}` }
       })
       onUserUpdate(editData)

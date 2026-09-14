@@ -4,6 +4,8 @@ import axios from 'axios'
 import Auth from './Auth'
 import Profile from './Profile'
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [user, setUser] = useState(null)
@@ -33,7 +35,7 @@ function App() {
     const token = localStorage.getItem('token')
     if (token) {
       try {
-        const response = await axios.get('http://localhost:8000/api/me', {
+        const response = await axios.get(`${API_URL}/api/me`, {
           headers: { Authorization: `Bearer ${token}` }
         })
         setUser(response.data)
@@ -48,7 +50,7 @@ function App() {
 
   const handleLogin = async (token) => {
     try {
-      const response = await axios.get('http://localhost:8000/api/me', {
+      const response = await axios.get(`${API_URL}/api/me`, {
         headers: { Authorization: `Bearer ${token}` }
       })
       setUser(response.data)
@@ -106,7 +108,7 @@ function App() {
       const formData = new FormData()
       formData.append('file', audioBlob)
       formData.append('language', language)
-      const response = await axios.post('http://localhost:8000/process-audio', formData, {
+      const response = await axios.post(`${API_URL}/process-audio`, formData, {
         headers: { 
           'Content-Type': 'multipart/form-data',
           'Authorization': `Bearer ${token}`
@@ -147,7 +149,7 @@ function App() {
     setAudioUrl(null)
     try {
       const token = localStorage.getItem('token')
-      const response = await axios.post('http://localhost:8000/process-text', {
+      const response = await axios.post(`${API_URL}/process-text`, {
         text: textInput.trim(),
         language
       }, {
@@ -222,15 +224,15 @@ function App() {
       const token = localStorage.getItem('token')
       let res
       if (modalType === 'weather') {
-        res = await axios.post('http://localhost:8000/api/weather', { city: modalInput, language }, {
+        res = await axios.post(`${API_URL}/api/weather`, { city: modalInput, language }, {
           headers: { 'Authorization': `Bearer ${token}` }
         })
       } else if (modalType === 'crop') {
-        res = await axios.post('http://localhost:8000/api/crop-prices', { crop: modalInput, language }, {
+        res = await axios.post(`${API_URL}/api/crop-prices`, { crop: modalInput, language }, {
           headers: { 'Authorization': `Bearer ${token}` }
         })
       } else if (modalType === 'schemes') {
-        res = await axios.post('http://localhost:8000/api/gov-schemes', { topic: modalInput, language }, {
+        res = await axios.post(`${API_URL}/api/gov-schemes`, { topic: modalInput, language }, {
           headers: { 'Authorization': `Bearer ${token}` }
         })
       }
